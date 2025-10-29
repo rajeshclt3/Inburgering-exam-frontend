@@ -1,0 +1,5 @@
+{
+  "name": "Dutch Writing Practice for Inburgering Exam",
+  "description": "An application to help users practice their Dutch writing skills for the A2 level Inburgering exam. It uses AI to provide detailed feedback, highlight mistakes, and offer corrected answers.",
+  "requestFramePermissions": []
+}
