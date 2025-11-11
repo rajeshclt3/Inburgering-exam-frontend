@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { PracticeQuestion, Feedback } from '../types';
-import { analyzeAnswer } from '../services/geminiService';
+import { evaluateAnswer } from "../api";
+
 import LoadingSpinner from './LoadingSpinner';
 import FeedbackDisplay from './FeedbackDisplay';
 
@@ -33,14 +34,13 @@ const PracticeCard: React.FC<PracticeCardProps> = ({ question }) => {
     setIsLoading(true);
     setFeedback(null);
     
-    const result = await analyzeAnswer(question, answer);
-    
-    if (result) {
+    try {
+      const result = await evaluateAnswer(question.id, question.prompt, answer);
       setFeedback(result);
-    } else {
-      setError('Er is iets misgegaan bij het analyseren van je antwoord. Probeer het opnieuw.');
-    }
-    
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      }
     setIsLoading(false);
   };
 
@@ -75,6 +75,18 @@ const PracticeCard: React.FC<PracticeCardProps> = ({ question }) => {
       </form>
       
       {feedback && <FeedbackDisplay feedback={feedback} />}
+
+      {feedback && question.sampleAnswer && (
+        <div className="mt-6 bg-sky-50 dark:bg-sky-900/40 p-4 rounded-lg border border-sky-200 dark:border-sky-800">
+          <h4 className="font-semibold text-slate-800 dark:text-slate-100 mb-1">
+            Sample antwoord:
+          </h4>
+          <p className="text-sky-800 dark:text-sky-200 italic">
+            {question.sampleAnswer}
+          </p>
+        </div>
+        )}
+
     </div>
   );
 };

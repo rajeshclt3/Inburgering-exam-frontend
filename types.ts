@@ -1,9 +1,11 @@
 
 export interface PracticeQuestion {
   id: number;
-  type: 'email' | 'short_answer' | 'form';
+  type: 'email' | 'short_answer' | 'form' | 'note' | 'extra';
   prompt: string;
   context?: string;
+  category: string;
+  sampleAnswer: string;
 }
 
 export interface Correction {
@@ -13,8 +15,11 @@ export interface Correction {
 }
 
 export interface Feedback {
-  evaluation: 'correct' | 'minor_errors' | 'major_errors' | 'off_topic';
+  evaluation: string;
+  highlighted_text: string;
   explanation: string;
   corrections: Correction[];
-  suggestedAnswer: string;
+  correctedAnswer: string;
+  idealAnswer: string;
+  feedback_in_english: string;
 }

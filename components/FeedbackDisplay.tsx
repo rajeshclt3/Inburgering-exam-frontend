@@ -54,9 +54,9 @@ const FeedbackDisplay: React.FC<FeedbackDisplayProps> = ({ feedback }) => {
             {feedback.corrections.map((corr, index) => (
               <li key={index} className="p-3 bg-white/50 dark:bg-slate-800/50 rounded-md border border-slate-200 dark:border-slate-700">
                 <div className="flex flex-col md:flex-row md:items-center gap-2">
-                  <span className="text-red-500 line-through">{corr.original}</span>
-                  <span className="text-2xl font-sans text-slate-400 dark:text-slate-500 hidden md:inline">→</span>
-                  <span className="text-green-600 dark:text-green-500 font-medium">{corr.corrected}</span>
+                  <span className="text-red-500 line-through break-words">{corr.original}</span>
+                  <span className="text-2xl font-sans text-slate-400 dark:text-slate-500 hidden md:inline break-words">→</span>
+                  <span className="text-green-600 dark:text-green-500 font-medium break-words">{corr.corrected}</span>
                 </div>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 pl-1">{corr.reason}</p>
               </li>
@@ -66,9 +66,16 @@ const FeedbackDisplay: React.FC<FeedbackDisplayProps> = ({ feedback }) => {
       )}
 
       <div>
-        <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-2">Voorbeeldantwoord:</h4>
+        <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-2">Improved answer:</h4>
         <p className="p-3 bg-sky-50 dark:bg-sky-900/50 rounded-md border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-300 italic">
-          {feedback.suggestedAnswer}
+          {feedback.correctedAnswer}
+        </p>
+      </div>
+
+      <div  className="mt-4">
+        <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-2">Sample Answer:</h4>
+        <p className="p-3 bg-sky-50 dark:bg-sky-900/50 rounded-md border border-sky-200 dark:border-sky-800 text-sky-800 dark:text-sky-300 italic">
+          {feedback.idealAnswer}
         </p>
       </div>
     </div>
